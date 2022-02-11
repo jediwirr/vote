@@ -5,5 +5,6 @@ export interface IMember {
 export interface ITeam {
     name: string,
     leader: string,
-    members: IMember[],
+    image: string,
+    members?: IMember[],
 }
