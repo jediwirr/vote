@@ -10,3 +10,10 @@ img {
 h2 {
     font-size: 36px;
 }
+
+.App {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}

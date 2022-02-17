@@ -8,3 +8,11 @@ export interface ITeam {
     image: string,
     members?: IMember[],
 }
+
+// export interface ITeam {
+//     name: string,
+//     leader: string,
+//     image: string,
+//     members?: string,
+//     voted?: number
+// }

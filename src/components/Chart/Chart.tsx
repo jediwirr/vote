@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
+
 import React, { FC } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
@@ -8,18 +7,37 @@ import { css } from "@emotion/react";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const data = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  labels: [
+        "Говоруны", 
+        "Операция Э", 
+        "Синяя молния", 
+        "Золотой Феникс", 
+        "Львы", 
+        "Шоколадный кот",
+        "Шпалерики",
+        "Лиловый единорог",
+        "Голубой дельфин",
+        "Желтый жираф",
+        "Стражи галактики",
+        "Алое сердце",
+    ],
   datasets: [
     {
       label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
+      data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
       backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
+        "limegreen",
+        "rebeccapurple",
+        "blue",
+        "gold",
+        "darkorange",
+        "sienna",
+        "tan",
+        "violet",
+        "lightskyblue",
+        "yellow",
+        "slategray",
+        "red"
       ],
       borderColor: [
         "rgba(255, 99, 132, 1)",
@@ -35,14 +53,12 @@ export const data = {
 };
 
 const chartStyle = css`
-    width: 350px;
+    width: 45%;
 `;
 
 const Chart: FC = () => {
   return (
-    <div css={css`
-        width: 350px;
-    `}>
+    <div css={chartStyle}>
         <Pie data={data} />
     </div>
   );
