@@ -7,13 +7,15 @@ import VotePage from './components/VotePage/VotePage';
 // import Home from './components/Home/Home';
 import { teams } from "./data/teams";
 import TeamIcon from './components/TeamIcon/TeamIcon';
+import Counter from './components/Counter';
 
 function App() {
 
   return (
     <div className="App">
+      <Counter />
       {/* <Home /> */}
-      <VotePage>
+      {/* <VotePage>
         <TeamsList
           items={teams}
           renderItems={item =>
@@ -21,7 +23,7 @@ function App() {
           }
         />
         <Chart />
-      </VotePage>
+      </VotePage> */}
     </div>
   );
 }
