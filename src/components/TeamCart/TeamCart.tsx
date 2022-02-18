@@ -4,9 +4,15 @@ import styles from "./Cart.module.css"
 
 interface TeamCartProps {
     team: ITeam;
+    update: (team: ITeam) => void;
 }
 
-const TeamCart: FC<TeamCartProps> = ({team}) => {
+const TeamCart: FC<TeamCartProps> = ({team, update}) => {
+
+    const handleUpdate = (event: React.MouseEvent) => {
+        const voted = team.voted ? team.voted + 1 : 1;
+        update({...team, voted})
+    };
 
     return (
         <div className={styles.cart}>
@@ -26,6 +32,7 @@ const TeamCart: FC<TeamCartProps> = ({team}) => {
                 <p key={member}>{member}</p>
             )}
             </div>
+            <button onClick={handleUpdate}>Vote!</button>
         </div>
     );
 };

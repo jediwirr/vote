@@ -4,11 +4,13 @@ import { teamAPI } from "../../services/TeamService";
 import TeamsList from "../TeamsList/TeamsList";
 import TeamIcon from "../TeamIcon/TeamIcon";
 import Chart from '../Chart/Chart';
+import { ITeam } from "../../types/types";
 
 const VotePage: FC = () => {
     const { data: teams, error, isLoading } = teamAPI.useFetchAllTeamsQuery(5, {
-        // pollingInterval: 10000
+        // pollingInterval: 1000
     });
+    const [updateTeam, { error: updateError, isLoading: isUpdateLoading }] = teamAPI.useUpdateTeamMutation();
 
     const StyledBlock = styled.div`
         display: flex;
@@ -16,6 +18,10 @@ const VotePage: FC = () => {
         
         width: 100%;
     `;
+
+    const handleUpdate = (team: ITeam) => {
+        updateTeam(team);
+    };
 
     return (
         <StyledBlock>
@@ -25,7 +31,7 @@ const VotePage: FC = () => {
             <TeamsList
                 items={teams}
                 renderItems={item =>
-                <TeamIcon key={item.name} team={item} voted={0} />
+                    <TeamIcon key={item.name} team={item} update={handleUpdate} />
                 }
             />
             }

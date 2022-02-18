@@ -1,15 +1,5 @@
-// export interface IMember {
-//     name: string,
-// }
-
-// export interface ITeam {
-//     name: string,
-//     leader: string,
-//     image: string,
-//     members?: IMember[],
-// }
-
 export interface ITeam {
+    pk: number,
     name: string,
     leader: string,
     image: string,
