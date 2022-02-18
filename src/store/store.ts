@@ -1,12 +1,21 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch } from 'react-redux'
-import counterSlice from "../features/counter/counterSlice";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { teamAPI } from "../services/TeamService";
+import teamReducer from "./reducers/TeamSlice";
 
-export const store = configureStore({
-    reducer: {
-        counter: counterSlice
-    }
+
+const rootReducer = combineReducers({
+    teamReducer,
+    [teamAPI.reducerPath]: teamAPI.reducer
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export const setupStore = () => {
+    return configureStore({
+        reducer: rootReducer,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware().concat(teamAPI.middleware)
+    });
+};
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore["dispatch"];
