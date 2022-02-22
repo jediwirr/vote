@@ -2,7 +2,6 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { teamAPI } from "../services/TeamService";
 import teamReducer from "./reducers/TeamSlice";
 
-
 const rootReducer = combineReducers({
     teamReducer,
     [teamAPI.reducerPath]: teamAPI.reducer

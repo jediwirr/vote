@@ -10,7 +10,7 @@ interface TeamsListProps {
 const TeamsList: FC<TeamsListProps> = ({items, renderItems}) => {
     const StyledBlock = styled.div`
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         width: 30%;
     `;
     

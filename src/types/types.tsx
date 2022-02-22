@@ -4,5 +4,6 @@ export interface ITeam {
     leader: string,
     image: string,
     members?: string,
-    voted?: number
+    voted?: number,
+    color: string
 }

@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ITeam } from "../../types/types";
 import { fetchTeams } from "./ActionCreators";
 
-
 interface TeamState {
     teams: ITeam[];
     isLoading: boolean;
