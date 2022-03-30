@@ -43,7 +43,7 @@ const TeamIcon: FC<TeamIconProps> = ({team, update}) => {
 
     return (
         <Container>
-            <BillLine />
+            {/* <BillLine /> */}
             <StyledBlock>
                 <img src={team.image} alt="team-logo" css={css`
                     width: 100%;

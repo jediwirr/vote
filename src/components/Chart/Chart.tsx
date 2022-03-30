@@ -3,6 +3,7 @@ import React, { FC } from "react";
 // import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 // import { Pie } from "react-chartjs-2";
 import { css } from "@emotion/react";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,16 +12,16 @@ import {
   Title,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const chartStyle = css`
-    width: 100%;
-    margin: 0 auto;
-`;
+// const chartStyle = css`
+//     width: 100%;
+//     height: 550px;
+// `;
 
 interface ChartProps {
   bill: number[];
@@ -29,8 +30,6 @@ interface ChartProps {
 }
 
 const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
-
-
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -40,36 +39,49 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
     Legend
   );
 
+  const max = Math.max.apply(null, bill);
+
   const options = {
+    indexAxis: 'y' as const,
+    maintainAspectRatio: false,
     responsive: true,
     plugins: {
       legend: {
         position: 'top' as const,
+        display: false,
       },
       title: {
         display: true,
-        text: 'Голосование',
+        text: `В голосовании лидирует команда ${labels[bill.indexOf(max)]}`,
       },
     },
+    scales:{
+      y: {
+        beginAtZero: true,
+      }
+    },
+    animation: {
+      duration:0,
+    },
   };
-
-  const max = Math.max.apply(null, bill);
 
   const data = {
     labels,
     datasets: [
       {
-        label: `Лидирует команда ${labels[bill.indexOf(max)]}`,
+        axis:'y',
+        label: `Отдано голосов: `,
         data: bill,
         backgroundColor: colors,
       },
     ],
   };
 
+
   return (
-    <div css={chartStyle}>
-      <Bar options={options} data={data} />
-    </div>
+    <div style={{height:'100%'}}>
+      <Bar options={options} data={data}/>
+    </div>  
   )
 
 

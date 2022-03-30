@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.block {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background-color:teal;
+}
+
+.login_input {
+    margin: 5px 5px 5px 5px;
+    padding: 10px 15px;
+    width: 50vw;
+    color: teal;
+    border: 1px solid teal;
+    border-radius: 10px;
+}
+
+.login_button {
+    margin: 5px 5px 5px 5px;
+    padding: 10px 15px;
+    color: teal;
+    background: transparent;
+    border: 1px solid teal;
+    cursor: pointer;
+    background: white;
+    border-radius: 10px;
+    font-size: 18px;
+}

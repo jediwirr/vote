@@ -3,6 +3,8 @@ import './App.css';
 
 import VotePage from './components/VotePage/VotePage';
 import Home from './components/Home/Home';
+import Auth from './components/Auth/Auth';
+
 import {
   BrowserRouter,
   Routes,
@@ -17,6 +19,7 @@ function App() {
         <Routes>
             <Route path="/" element={<VotePage />} />
             <Route path="/teams" element={<Home />} />
+            <Route path="/login" element={<Auth />} />
           </Routes>
     </BrowserRouter>
     </div>
