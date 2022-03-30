@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import classes from './Auth.module.css'
 import {useDispatch, useSelector} from 'react-redux';
+import { Link } from "react-router-dom";
 
 
 const Auth: FC = () => {
@@ -71,6 +72,7 @@ const Auth: FC = () => {
                 <input type="password" className={classes.login_input} placeholder='Введите пароль' value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 <button className={classes.login_button} onClick={sendCredentials}>Вход</button>
             </div>
+            <Link to="/vote">To vote</Link>
         </div>
     );
 }

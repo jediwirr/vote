@@ -17,9 +17,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-            <Route path="/" element={<VotePage />} />
+            <Route path="/vote" element={<VotePage />} />
             <Route path="/teams" element={<Home />} />
-            <Route path="/login" element={<Auth />} />
+            <Route path="/" element={<Auth />} />
           </Routes>
     </BrowserRouter>
     </div>
