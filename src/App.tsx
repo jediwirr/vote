@@ -13,7 +13,7 @@ import {
 
 function App() {
 
-  const [clue, setClue] = useState('')
+  const [id, setId] = useState('')
 
   return (
     <div className="App">
@@ -21,7 +21,7 @@ function App() {
         <Routes>
             <Route path="/vote" element={<VotePage />} />
             <Route path="/teams" element={<Home />} />
-            <Route path="/" element={<Auth setClue={setClue}/>} />
+            <Route path="/" element={<Auth setId={setId}/>} />
           </Routes>
     </BrowserRouter>
     </div>
