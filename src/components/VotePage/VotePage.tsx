@@ -6,6 +6,7 @@ import TeamIcon from "../TeamIcon/TeamIcon";
 import Chart from '../Chart/Chart';
 import { ITeam } from "../../types/types";
 import { Link } from "react-router-dom";
+import styles from "./VotePage.module.css"
 
 const VotePage: FC = () => {
     const { data: teams, error, isLoading } = teamAPI.useFetchAllTeamsQuery(5, {
@@ -39,7 +40,7 @@ const VotePage: FC = () => {
         align-items: center;
         width: 100%;
         height: 550px;
-        margin: 0 0 0 auto;
+        padding: 5px;
     `;
 
     const handleUpdate = useCallback((team: ITeam) => {
@@ -64,8 +65,8 @@ const VotePage: FC = () => {
             
            
             }
-            <div>
-                <Link to="/teams">Голосовать!</Link>
+            <div style={{marginTop:'25px'}}>
+                <Link className={styles.submit_button} to="/teams">Голосовать!</Link>
             </div> 
         </StyledBlock>
         

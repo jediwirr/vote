@@ -1,0 +1,11 @@
+.submit_button {
+    margin-top: 500px;
+    padding: 10px 15px;
+    color: teal;
+    background: transparent;
+    border: 1px solid teal;
+    cursor: pointer;
+    background: white;
+    border-radius: 10px;
+    font-size: 14px;
+}
