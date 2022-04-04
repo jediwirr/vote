@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const VotePage: FC = () => {
     const { data: teams, error, isLoading } = teamAPI.useFetchAllTeamsQuery(5, {
-        pollingInterval: 1000
+        pollingInterval: 100000
     });
     const [updateTeam, { error: updateError, isLoading: isUpdateLoading }] = teamAPI.useUpdateTeamMutation();
 
