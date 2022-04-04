@@ -51,8 +51,8 @@ const Auth: FC<AuthProps> = ({setClue}) => {
     // };
 
     const sendCredentials = () => {
-        fetch(`https://diary.alma-mater-spb.ru/e-journal/api/check_login.php?username=${login}&password=${password}&token=alma831`, {
-            method: 'GET',
+        fetch(`https://diary.alma-mater-spb.ru/e-journal/api/check_login_js.php?username=${login}&password=${password}&token=alma831`, {
+            method: 'GET'
         })
         .then(response => response.json())
         .then(response => {
