@@ -14,7 +14,7 @@ const Auth: FC<AuthProps> = ({setId}) => {
     const log_in = (students:any, user:any, user_type:any, user_data:any) => dispatch({type: 'LOG_IN', students, user, user_type, user_data});
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
-    let isAbleToRedirect = false
+    const [isAbleToRedirect, setIsAbleToRedirect] = useState(false)
 
     const sendCredentials = () => {
         fetch(`https://diary.alma-mater-spb.ru/e-journal/api/check_login_js.php?username=${login}&password=${password}&token=alma831`, {
@@ -24,7 +24,7 @@ const Auth: FC<AuthProps> = ({setId}) => {
         .then(response => {
             if (response.status === 0 && response.type === 1) {
                 console.log(response);
-                isAbleToRedirect = true
+                setIsAbleToRedirect(true)
                 console.log(isAbleToRedirect)
             } else if (login === '' || password === '') {
                 alert('Введите логин и пароль');
