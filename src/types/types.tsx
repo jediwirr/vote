@@ -7,3 +7,7 @@ export interface ITeam {
     voted?: number,
     color: string
 }
+
+export interface IVoter {
+    clue: string
+}

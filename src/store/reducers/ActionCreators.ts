@@ -1,4 +1,4 @@
-import { ITeam } from "../../types/types";
+import { ITeam, IVoter } from "../../types/types";
 // import { AppDispatch } from "../store";
 import axios from "axios";
 // import { teamSlice } from "./TeamSlice";
@@ -25,6 +25,18 @@ export const fetchTeams = createAsyncThunk(
             return response.data;
         } catch (e) {
             return thunkAPI.rejectWithValue("Не удалось загрузить список команд");
+        }
+    }
+);
+
+export const fetchVoters = createAsyncThunk(
+    "voters/fetchAll",
+    async (_, thunkAPI) => {
+        try {
+            const response = await axios.get<IVoter[]>('https://gimnazist.herokuapp.com/api/voters/');
+            return response.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue("Не удалось загрузить список голосующих");
         }
     }
 );

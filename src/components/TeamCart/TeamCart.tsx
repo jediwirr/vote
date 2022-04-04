@@ -1,19 +1,39 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import { ITeam } from "../../types/types";
+import { ITeam, IVoter } from "../../types/types";
 import styles from "./Cart.module.css"
 
 interface TeamCartProps {
     team: ITeam;
+    clue: string;
+    voters?: IVoter[];
+    push: (voter: IVoter) => void;
     update: (team: ITeam) => void;
+
 }
 
-const TeamCart: FC<TeamCartProps> = ({team, update}) => {
+const TeamCart: FC<TeamCartProps> = ({team, clue, voters, push, update}) => {
+
+    let isAbleToRedirect = false
 
     const handleUpdate = (event: React.MouseEvent) => {
-        const voted = team.voted ? team.voted + 1 : 1;
-        update({...team, voted})
+
+        //TODO: if for form
+
+        if(voters?.find((item) => {
+            if(item.clue === clue) return 1;
+        }) ){
+            alert(`${clue} is alredy vote`);
+        }
+        else{
+            isAbleToRedirect = true
+            push({clue: clue})
+            const voted = team.voted ? team.voted + 1 : 1;
+            update({...team, voted})
+        }
     };
+
+
 
     return (
         <div className={styles.cart}>
@@ -28,13 +48,13 @@ const TeamCart: FC<TeamCartProps> = ({team, update}) => {
             </div>
 
             <div className={styles.list}>
-            <strong>Участники:</strong>
+            <strong className={styles.member}>Участники:</strong>
             {team.members?.split(",").map((member) =>
-                <p key={member}>{member}</p>
+                <p className={styles.member} key={member}>{member}</p>
             )}
             </div>
-            <button onClick={handleUpdate}>
-                <Link to="/">Голосовать за команду!</Link>
+            <button className={styles.submit_button} /*style={{border:'1px solid ' + team.color}}*/ onClick={handleUpdate}>
+                <Link to={isAbleToRedirect ? '/vote' : '/teams'}>Голосовать за команду!</Link>
             </button>
         </div>
     );

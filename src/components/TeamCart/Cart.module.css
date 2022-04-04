@@ -1,4 +1,5 @@
 .cart {
+    justify-content: center;
     padding: 35px;
     text-align: center;
 }
@@ -12,4 +13,20 @@
 .list {
     text-align: left;
     margin-top: 36px;
+}
+
+.member {
+    text-align: center;
+}
+
+.submit_button {
+    margin: 5px 5px 5px 5px;
+    padding: 10px 15px;
+    color: teal;
+    background: transparent;
+    border: 1px solid teal;
+    cursor: pointer;
+    background: white;
+    border-radius: 10px;
+    font-size: 14px;
 }

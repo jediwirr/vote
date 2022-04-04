@@ -9,13 +9,14 @@ import { Link } from "react-router-dom";
 
 const VotePage: FC = () => {
     const { data: teams, error, isLoading } = teamAPI.useFetchAllTeamsQuery(5, {
-        pollingInterval: 10000
+        pollingInterval: 1000
     });
     const [updateTeam, { error: updateError, isLoading: isUpdateLoading }] = teamAPI.useUpdateTeamMutation();
 
     const [bill, setBill] = useState<number[]>([]);
     const [labels, setLabels] = useState<string[]>([]);
     const [colors, setColors] = useState<string[]>([]);
+
 
     useEffect(() => {
         let billArr: number[] = [];
@@ -37,7 +38,7 @@ const VotePage: FC = () => {
         flex-direction: column;
         align-items: center;
         width: 100%;
-        height: 650px;
+        height: 550px;
         margin: 0 0 0 auto;
     `;
 
