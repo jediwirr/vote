@@ -27,7 +27,7 @@ const Auth: FC<AuthProps> = ({setVoter}) => {
                 setVoter({
                     clue: response.clue,
                     user_id: response.user_id,
-                    form: response.student[0].number,
+                    form: Number(response.student[0].number),
                     name: response.student[0].name,
                     surname: response.student[0].surname,
                     choice: ''
