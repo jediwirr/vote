@@ -10,18 +10,19 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import { IVoter } from './types/types';
 
 function App() {
 
-  const [id, setId] = useState('')
+  const [voter, setVoter] = useState({} as IVoter)
 
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
             <Route path="/vote" element={<VotePage />} />
-            <Route path="/teams" element={<Home />} />
-            <Route path="/" element={<Auth setId={setId}/>} />
+            <Route path="/teams" element={<Home voter={voter}/>} />
+            <Route path="/" element={<Auth setVoter={setVoter}/>} />
           </Routes>
     </BrowserRouter>
     </div>

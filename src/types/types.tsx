@@ -5,9 +5,15 @@ export interface ITeam {
     image: string,
     members?: string,
     voted?: number,
-    color: string
+    color: string,
+    form: number
 }
 
 export interface IVoter {
-    clue: string
+    clue: string,
+    user_id: string,
+    form: number,
+    name: string,
+    surname: string,
+    choice: string
 }

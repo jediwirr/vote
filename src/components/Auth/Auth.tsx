@@ -2,16 +2,15 @@ import React, { FC, useState } from "react";
 import classes from './Auth.module.css'
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from "react-router-dom";
-import styled from "@emotion/styled";
+import { IVoter } from "../../types/types";
 
 interface AuthProps {
-    setId: (id: string) => void
+    setVoter: (voter: IVoter) => void
 }
 
-const Auth: FC<AuthProps> = ({setId}) => {
+const Auth: FC<AuthProps> = ({setVoter}) => {
 
     const dispatch = useDispatch();
-    const log_in = (students:any, user:any, user_type:any, user_data:any) => dispatch({type: 'LOG_IN', students, user, user_type, user_data});
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [isAbleToRedirect, setIsAbleToRedirect] = useState(false)
@@ -25,11 +24,19 @@ const Auth: FC<AuthProps> = ({setId}) => {
             if (response.status === 0 && response.type === 1) {
                 console.log(response);
                 setIsAbleToRedirect(true)
+                setVoter({
+                    clue: response.clue,
+                    user_id: response.user_id,
+                    form: response.student[0].number,
+                    name: response.student[0].name,
+                    surname: response.student[0].surname,
+                    choice: ''
+                })
                 console.log(isAbleToRedirect)
             } else if (login === '' || password === '') {
                 alert('Введите логин и пароль');
             } else if (response.status === 0 && response.type !== 1) {
-                alert('Вы не можете принять участие в голосовании')
+                alert('Вы не можете принять участие в голосовании, продолжите без входа')
             }
             else {
                 alert('Вы ввели неверный логин или пароль');
@@ -47,9 +54,9 @@ const Auth: FC<AuthProps> = ({setId}) => {
                 <input type="text" className={classes.login_input} placeholder='Введите логин' value={login} onChange={(e) => setLogin(e.target.value)}></input>
                 <input type="password" className={classes.login_input} placeholder='Введите пароль' value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 <div className={classes.login_button} onClick={sendCredentials}>
-                    <Link to={isAbleToRedirect ? '/vote' : '/'} >Вход</Link>
+                    <Link to={isAbleToRedirect ? '/teams' : '/'} >Вход</Link>
                 </div>
-                <Link className={classes.skip_button} to="/vote">Продолжить без регистрации</Link>
+                <Link className={classes.skip_button} to="/teams">Продолжить без авторизации</Link>
             </div>      
         </div>
     );
