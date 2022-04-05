@@ -47,7 +47,8 @@ const TeamCart: FC<TeamCartProps> = ({team, voter, voters, push, update}) => {
                 <span>{team.leader}</span>
             </div>
 
-            <div className={styles.list}>
+            <div style={{marginTop:'15px'}}>
+                <strong>Команда {team.form === 12 ? 'экстерната' :  `${team.form} класса`}</strong>
             </div>
             <button className={styles.submit_button} /*style={{border:'1px solid ' + team.color}}*/ onClick={handleUpdate}>
                 <Link to={isAbleToRedirect ? '/vote' : '/teams'}>Голосовать за команду!</Link>
