@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { ITeam, IVoter } from "../../types/types";
+import MyModal from "../MyModal/MyModal";
 import styles from "./Cart.module.css"
 
 interface TeamCartProps {
@@ -15,6 +16,7 @@ interface TeamCartProps {
 const TeamCart: FC<TeamCartProps> = ({team, voter, voters, push, update}) => {
 
     let isAbleToRedirect = false
+    const [visible, setVisible] = useState(false)
 
     const handleUpdate = (event: React.MouseEvent) => {
         if(voters?.find((item) => {
@@ -33,15 +35,18 @@ const TeamCart: FC<TeamCartProps> = ({team, voter, voters, push, update}) => {
         }
     };
 
-
-
     return (
         <div className={styles.cart}>
             <h2>{team.name}</h2>
             <div className={styles.logo}>
-                <img src={team.image} alt="logo" />
+                <img src={team.image} alt="logo" onClick={() => {setVisible(!visible); console.log(team)}} />
             </div>
-            
+            <MyModal visible={visible} setVisible={setVisible}>
+                <div>
+                    <h3>Состав команды:</h3>
+                    <h3 style={{whiteSpace: 'pre-line'}}>{team.members}</h3>
+                </div>
+            </MyModal>
             <div>
                 <strong>Капитан: </strong>
                 <span>{team.leader}</span>

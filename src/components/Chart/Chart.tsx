@@ -42,7 +42,7 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
   const max = Math.max.apply(null, bill);
 
   const options = {
-    indexAxis: 'y' as const,
+    //indexAxis: 'y' as const,
     maintainAspectRatio: false,
     responsive: true,
     plugins: {
