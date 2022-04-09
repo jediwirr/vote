@@ -39,14 +39,18 @@ const TeamCart: FC<TeamCartProps> = ({team, voter, voters, push, update}) => {
         <div className={styles.cart}>
             <h2>{team.name}</h2>
             <div className={styles.logo}>
-                <img src={team.image} alt="logo" onClick={() => {setVisible(!visible); console.log(team)}} />
+                <img src={team.image} alt="logo" onClick={() => {setVisible(!visible);}} />
             </div>
+            
             <MyModal visible={visible} setVisible={setVisible}>
                 <div>
                     <h3>Состав команды:</h3>
                     <h3 style={{whiteSpace: 'pre-line'}}>{team.members}</h3>
                 </div>
             </MyModal>
+            {voter.user_id === null && <button className={styles.submit_button} /*style={{border:'1px solid ' + team.color}}*/ onClick={handleUpdate}>
+                <Link to={isAbleToRedirect ? '/vote' : '/teams'}>Голосовать за команду!</Link>
+            </button>}
             <div>
                 <strong>Капитан: </strong>
                 <span>{team.leader}</span>
@@ -55,9 +59,6 @@ const TeamCart: FC<TeamCartProps> = ({team, voter, voters, push, update}) => {
             <div style={{marginTop:'15px'}}>
                 <strong>Команда {team.form === 12 ? 'экстерната' :  `${team.form} класса`}</strong>
             </div>
-            <button className={styles.submit_button} /*style={{border:'1px solid ' + team.color}}*/ onClick={handleUpdate}>
-                <Link to={isAbleToRedirect ? '/vote' : '/teams'}>Голосовать за команду!</Link>
-            </button>
         </div>
     );
 };
