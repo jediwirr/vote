@@ -48,7 +48,7 @@ const TeamCart: FC<TeamCartProps> = ({team, voter, voters, push, update}) => {
                     <h3 style={{whiteSpace: 'pre-line'}}>{team.members}</h3>
                 </div>
             </MyModal>
-            {voter.user_id === null && <button className={styles.submit_button} /*style={{border:'1px solid ' + team.color}}*/ onClick={handleUpdate}>
+            {voter.user_id !== 'null' && <button className={styles.submit_button} /*style={{border:'1px solid ' + team.color}}*/ onClick={handleUpdate}>
                 <Link to={isAbleToRedirect ? '/vote' : '/teams'}>Голосовать за команду!</Link>
             </button>}
             <div>

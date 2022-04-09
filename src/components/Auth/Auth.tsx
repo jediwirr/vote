@@ -48,6 +48,17 @@ const Auth: FC<AuthProps> = ({setVoter}) => {
         });
     };
 
+    const setEmptyVoter = () => {
+        setVoter({
+            clue: '',
+            user_id: 'null',
+            form: 0,
+            name: '',
+            surname: '',
+            choice: ''
+        })
+    }
+
     return (
         <div className={classes.block}>
             <div className={classes.container}>
@@ -56,7 +67,7 @@ const Auth: FC<AuthProps> = ({setVoter}) => {
                 <div className={classes.login_button} onClick={sendCredentials}>
                     <Link to={isAbleToRedirect ? '/teams' : '/'} >Вход</Link>
                 </div>
-                <Link className={classes.skip_button} to="/teams">Продолжить без авторизации</Link>
+                <Link className={classes.skip_button} onClick={setEmptyVoter} to="/teams">Продолжить без авторизации</Link>
             </div>      
         </div>
     );

@@ -30,6 +30,8 @@ const Home: FC<HomeProps> = ({voter}) => {
         pushVoter(voter);
     };
 
+    console.log(voter)
+
     return (
         <div className={styles.home}>
             {isLoading && <h1>Идет загрузка...</h1>}
