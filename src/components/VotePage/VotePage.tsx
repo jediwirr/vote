@@ -60,12 +60,15 @@ const VotePage: FC = () => {
             // />
             <div style={{height:'90%', width:'100%'}}>
                 <Chart bill={bill} labels={labels} colors={colors} />
+                <div className={styles.container}>
+                {teams?.map((team: ITeam) => 
+                    <img className={styles.team_logo} src={team.image} alt="logo"/>
+                )}
             </div>
-            
-            
-           
+            </div>
             }
-            <div style={{marginTop:'25px'}}>
+
+            <div style={{marginTop:'7%'}}>
                 <Link className={styles.submit_button} to="/teams">Голосовать!</Link>
             </div> 
         </StyledBlock>

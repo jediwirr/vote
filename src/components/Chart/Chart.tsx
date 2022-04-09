@@ -1,5 +1,6 @@
 
 import React, { FC } from "react";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 // import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 // import { Pie } from "react-chartjs-2";
 import { css } from "@emotion/react";
@@ -15,8 +16,9 @@ import {
   ArcElement,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { Anchor, Font } from "chartjs-plugin-datalabels/types/options";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 // const chartStyle = css`
 //     width: 100%;
@@ -40,6 +42,8 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
   );
 
   const max = Math.max.apply(null, bill);
+  let sum = 0
+  bill.forEach( (item) => {sum += item} )
 
   const options = {
     //indexAxis: 'y' as const,
@@ -54,6 +58,14 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
         display: true,
         text: `В голосовании лидирует команда ${labels[bill.indexOf(max)]}`,
       },
+      datalabels:{
+        color: 'black',
+        anchor: 'end' as Anchor,
+        align: 'top' as Anchor,
+        formatter: function(value: any) {
+          return value + ': ' + Math.round(value*100/sum) + '%'
+        }
+      }
     },
     scales:{
       y: {
