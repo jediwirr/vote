@@ -1,3 +1,4 @@
+import { format } from "path";
 import React, { FC, useEffect } from "react";
 import TeamCart from "../../components/TeamCart/TeamCart";
 import { teamAPI } from "../../services/TeamService";
@@ -35,8 +36,9 @@ const Home: FC<HomeProps> = ({voter}) => {
         <div className={styles.home}>
             {isLoading && <h1>Идет загрузка...</h1>}
             {error && <h1>Произошла ошибка</h1>}
-            {teams?.map((team: ITeam) => 
-                {team.form !== voter.form && <TeamCart update={handleUpdate} voters={voters} push={handlePush} voter={voter} key={team.name} team={team} />  }
+            {teams?.map((team: ITeam) => {
+                if(team.form !== voter.form) return <TeamCart update={handleUpdate} voters={voters} push={handlePush} voter={voter} key={team.name} team={team} />
+            }
             )}
         </div>
     )

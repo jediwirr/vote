@@ -65,7 +65,7 @@ const Auth: FC<AuthProps> = ({setVoter}) => {
                 <input type="text" className={classes.login_input} placeholder='Введите логин' value={login} onChange={(e) => setLogin(e.target.value)}></input>
                 <input type="password" className={classes.login_input} placeholder='Введите пароль' value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 <div className={classes.login_button} onClick={sendCredentials}>
-                    <Link to={isAbleToRedirect ? '/teams' : '/'} >Вход</Link>
+                    <Link to={isAbleToRedirect ? '/teams' : '/auth'} >Вход</Link>
                 </div>
                 {/* <Link className={classes.skip_button} onClick={setEmptyVoter} to="/teams">Продолжить без авторизации</Link> */}
             </div>      
