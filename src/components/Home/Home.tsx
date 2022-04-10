@@ -30,14 +30,13 @@ const Home: FC<HomeProps> = ({voter}) => {
         pushVoter(voter);
     };
 
-    console.log(voter)
 
     return (
         <div className={styles.home}>
             {isLoading && <h1>Идет загрузка...</h1>}
             {error && <h1>Произошла ошибка</h1>}
             {teams?.map((team: ITeam) => 
-                <TeamCart update={handleUpdate} voters={voters} push={handlePush} voter={voter} key={team.name} team={team} />  
+                {team.form !== voter.form && <TeamCart update={handleUpdate} voters={voters} push={handlePush} voter={voter} key={team.name} team={team} />  }
             )}
         </div>
     )
