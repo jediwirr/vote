@@ -4,15 +4,19 @@ import { teamAPI } from "../../services/TeamService";
 import TeamsList from "../TeamsList/TeamsList";
 import TeamIcon from "../TeamIcon/TeamIcon";
 import Chart from '../Chart/Chart';
-import { ITeam } from "../../types/types";
+import { ITeam, IVoter } from "../../types/types";
 import { Link } from "react-router-dom";
 import styles from "./VotePage.module.css"
+import { voterAPI } from "../../services/VoterService";
 
 const VotePage: FC = () => {
     const { data: teams, error, isLoading } = teamAPI.useFetchAllTeamsQuery(5, {
         pollingInterval: 100000
     });
     const [updateTeam, { error: updateError, isLoading: isUpdateLoading }] = teamAPI.useUpdateTeamMutation();
+    const { data: voters} = voterAPI.useFetchAllVotersQuery(5, {
+        pollingInterval: 20000
+    });
 
     const [bill, setBill] = useState<number[]>([]);
     const [labels, setLabels] = useState<string[]>([]);
@@ -24,7 +28,11 @@ const VotePage: FC = () => {
         let labelsArr: string[] = [];
         let colorsArr: string[] = [];
         teams?.map((team: ITeam) => {
-            billArr.push(team.voted ? team.voted : 0);
+            let voted = team.voted ? team.voted : 0;
+            voters?.forEach((voter:IVoter) => {
+                if(voter.choice === team.name) voted++;
+            })
+            billArr.push(voted);
             labelsArr.push(team.name);
             colorsArr.push(team.color);
         });
@@ -32,7 +40,7 @@ const VotePage: FC = () => {
         setBill(billArr);
         setLabels(labelsArr);
         setColors(colorsArr);
-    }, [teams]);
+    }, [teams, voters]);
 
     const StyledBlock = styled.div`
         display: flex;

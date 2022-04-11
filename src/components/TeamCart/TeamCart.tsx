@@ -31,7 +31,7 @@ const TeamCart: FC<TeamCartProps> = ({team, voter, voters, push, update}) => {
             isAbleToRedirect = true
             push({...voter, choice: team.name})
             const voted = team.voted ? team.voted + 1 : 1;
-            update({...team, voted})
+            // update({...team, voted})
         }
     };
 

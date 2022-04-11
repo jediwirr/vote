@@ -21,18 +21,21 @@ const Auth: FC<AuthProps> = ({setVoter}) => {
         })
         .then(response => response.json())
         .then(response => {
-            if (response.status === 0 && response.type === 1) {
+            if (response.status === 0 && response.type === 1 ) {
                 console.log(response);
-                setIsAbleToRedirect(true)
-                setVoter({
-                    clue: response.clue,
-                    user_id: response.user_id,
-                    form: Number(response.student[0].number),
-                    name: response.student[0].name,
-                    surname: response.student[0].surname,
-                    choice: ''
-                })
-                console.log(isAbleToRedirect)
+                setIsAbleToRedirect(true);
+                if(Number(response.student[0].number) > 3){
+                    setVoter({
+                        clue: response.clue,
+                        user_id: response.user_id,
+                        form: Number(response.student[0].number),
+                        name: response.student[0].name,
+                        surname: response.student[0].surname,
+                        choice: ''
+                    })
+                    console.log(isAbleToRedirect)
+                }
+                else alert('Проголосуйте, используя стикеры в классе');
             } else if (login === '' || password === '') {
                 alert('Введите логин и пароль');
             } else if (response.status === 0 && response.type !== 1) {
