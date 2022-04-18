@@ -11,7 +11,7 @@ import { voterAPI } from "../../services/VoterService";
 
 const VotePage: FC = () => {
     const { data: teams, error, isLoading } = teamAPI.useFetchAllTeamsQuery(5, {
-        pollingInterval: 100000
+        pollingInterval: 10000
     });
     const [updateTeam, { error: updateError, isLoading: isUpdateLoading }] = teamAPI.useUpdateTeamMutation();
     const { data: voters} = voterAPI.useFetchAllVotersQuery(5, {
@@ -55,6 +55,10 @@ const VotePage: FC = () => {
         updateTeam(team);
     }, []);
 
+    const newVotedData = (team: ITeam, voted: number) => {
+        updateTeam({...team, voted})
+    }
+
     return (
         <StyledBlock>
             {isLoading && <h1>Идет загрузка...</h1>}
@@ -72,12 +76,16 @@ const VotePage: FC = () => {
                 {teams?.map((team: ITeam) => 
                     <img className={styles.team_logo} src={team.image} alt="logo"/>
                 )}
+                {teams?.map((team: ITeam) => 
+                    <input type="text" className={styles.team_logo} value={team.voted} onChange={e => newVotedData(team, Number(e.target.value))}/>
+                )
+                }
             </div>
             </div>
             }
 
             <div style={{marginTop:'7%'}}>
-                <Link className={styles.submit_button} to="/teams">Голосовать!</Link>
+                <button className={styles.submit_button}>Начать голосование!</button>
             </div> 
         </StyledBlock>
         

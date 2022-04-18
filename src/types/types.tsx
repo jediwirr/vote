@@ -17,3 +17,11 @@ export interface IVoter {
     surname: string,
     choice: string
 }
+
+export interface IParent {
+    clue: string,
+    user_id: string,
+    name: string,
+    surname: string,
+    choice: string
+}

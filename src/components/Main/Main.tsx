@@ -10,11 +10,11 @@ const Main = () => {
     return (
         <div className={styles.container}>
             <div className={styles.block}>
-                <Link className={styles.post} to="/auth">
+                <Link className={styles.post} to="/kidAuth">
                     <BsPersonFill size="6em"/>
                     <h2>Ученик</h2>
                 </Link>
-                <Link className={styles.post} to="/auth">
+                <Link className={styles.post} to="/parentAuth">
                     <BsFillPeopleFill size="6em"/>
                     <h2>Родитель</h2>
                 </Link>

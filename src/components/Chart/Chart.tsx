@@ -16,7 +16,7 @@ import {
   ArcElement,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Anchor, Font } from "chartjs-plugin-datalabels/types/options";
+import { Anchor } from "chartjs-plugin-datalabels/types/options";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
@@ -42,8 +42,8 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
   );
 
   const max = Math.max.apply(null, bill);
-  let sum = 0
-  bill.forEach( (item) => {sum += item} )
+  // let sum = 0
+  // bill.forEach( (item) => {sum += item} )
 
   const options = {
     //indexAxis: 'y' as const,
@@ -63,7 +63,7 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
         anchor: 'end' as Anchor,
         align: 'top' as Anchor,
         formatter: function(value: any) {
-          return value + ': ' + Math.round(value*100/sum) + '%'
+          return value
         }
       }
     },
@@ -95,33 +95,6 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
       <Bar options={options} data={data}/>
     </div>  
   )
-
-
-  // const data = {
-  //   labels: labels,
-  //   datasets: [
-  //     {
-  //       label: "# of Votes",
-  //       data: bill,
-  //       backgroundColor: colors,
-  //       borderColor: [
-  //         "rgba(255, 99, 132, 1)",
-  //         "rgba(54, 162, 235, 1)",
-  //         "rgba(255, 206, 86, 1)",
-  //         "rgba(75, 192, 192, 1)",
-  //         "rgba(153, 102, 255, 1)",
-  //         "rgba(255, 159, 64, 1)",
-  //       ],
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
-
-  // return (
-  //   <div css={chartStyle}>
-  //       <Pie data={data} />
-  //   </div>
-  // );
 }
 
 

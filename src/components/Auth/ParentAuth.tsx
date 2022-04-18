@@ -1,14 +1,14 @@
 import React, { FC, useState } from "react";
-import classes from './Auth.module.css'
+import classes from '././Auth.module.css'
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from "react-router-dom";
-import { IVoter } from "../../types/types";
+import { IParent } from "../../types/types";
 
-interface AuthProps {
-    setVoter: (voter: IVoter) => void
+interface ParentAuthProps {
+    setParent: (parent: IParent) => void
 }
 
-const Auth: FC<AuthProps> = ({setVoter}) => {
+const ParentAuth: FC<ParentAuthProps> = ({setParent}) => {
 
     const dispatch = useDispatch();
     const [login, setLogin] = useState('')
@@ -21,25 +21,21 @@ const Auth: FC<AuthProps> = ({setVoter}) => {
         })
         .then(response => response.json())
         .then(response => {
-            if (response.status === 0 && response.type === 1 ) {
+            if (response.status === 0 && response.type === 2 ) {
                 console.log(response);
                 setIsAbleToRedirect(true);
-                if(Number(response.student[0].number) > 3){
-                    setVoter({
-                        clue: response.clue,
-                        user_id: response.user_id,
-                        form: Number(response.student[0].number),
-                        name: response.student[0].name,
-                        surname: response.student[0].surname,
-                        choice: ''
-                    })
-                    console.log(isAbleToRedirect)
-                }
-                else alert('Проголосуйте, используя стикеры в классе');
+                setParent({
+                    clue: response.clue,
+                    user_id: response.user_id,
+                    name: response.student[0].name,
+                    surname: response.student[0].surname,
+                    choice: ''
+                })
+                console.log(isAbleToRedirect)
             } else if (login === '' || password === '') {
                 alert('Введите логин и пароль');
-            } else if (response.status === 0 && response.type !== 1) {
-                alert('Вы не можете принять участие в голосовании, продолжите без входа')
+            } else if (response.status === 0 && response.type !== 2) {
+                alert('Воспользуйтесь другой опцией входа')
             }
             else {
                 alert('Вы ввели неверный логин или пароль');
@@ -51,16 +47,16 @@ const Auth: FC<AuthProps> = ({setVoter}) => {
         });
     };
 
-    const setEmptyVoter = () => {
-        setVoter({
-            clue: '',
-            user_id: 'null',
-            form: 0,
-            name: '',
-            surname: '',
-            choice: ''
-        })
-    }
+    // const setEmptyVoter = () => {
+    //     setVoter({
+    //         clue: '',
+    //         user_id: 'null',
+    //         form: 0,
+    //         name: '',
+    //         surname: '',
+    //         choice: ''
+    //     })
+    // }
 
     return (
         <div className={classes.block}>
@@ -68,7 +64,7 @@ const Auth: FC<AuthProps> = ({setVoter}) => {
                 <input type="text" className={classes.login_input} placeholder='Введите логин' value={login} onChange={(e) => setLogin(e.target.value)}></input>
                 <input type="password" className={classes.login_input} placeholder='Введите пароль' value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 <div className={classes.login_button} onClick={sendCredentials}>
-                    <Link to={isAbleToRedirect ? '/vote' : '/auth'} >Вход</Link>
+                    <Link to={isAbleToRedirect ? '/parentVote' : '/parentAuth'}>Вход</Link>
                 </div>
                 {/* <Link className={classes.skip_button} onClick={setEmptyVoter} to="/teams">Продолжить без авторизации</Link> */}
             </div>      
@@ -76,4 +72,4 @@ const Auth: FC<AuthProps> = ({setVoter}) => {
     );
 }
 
-export default Auth;
+export default ParentAuth;
