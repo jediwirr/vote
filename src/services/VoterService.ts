@@ -22,6 +22,13 @@ export const voterAPI = createApi({
                 body: voter
             }),
             invalidatesTags: ["voter"]
+        }),
+        deleteVoter: builder.mutation<IVoter, number>({
+            query: (id) => ({
+                url: `/voters/${id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["voter"]
         })
     })
 });

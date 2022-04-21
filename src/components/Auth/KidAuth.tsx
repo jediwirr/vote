@@ -26,12 +26,14 @@ const KidAuth: FC<KidAuthProps> = ({setVoter}) => {
                 setIsAbleToRedirect(true);
                 if(Number(response.student[0].number) > 3){
                     setVoter({
+                        pk: 0,
                         clue: response.clue,
                         user_id: response.user_id,
                         form: Number(response.student[0].number),
                         name: response.student[0].name,
                         surname: response.student[0].surname,
-                        choice: ''
+                        choice: '',
+                        voted: new Date().toISOString()
                     })
                     console.log(isAbleToRedirect)
                 }

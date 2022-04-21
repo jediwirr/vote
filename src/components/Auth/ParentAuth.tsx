@@ -25,6 +25,7 @@ const ParentAuth: FC<ParentAuthProps> = ({setParent}) => {
                 console.log(response);
                 setIsAbleToRedirect(true);
                 setParent({
+                    pk: 0,
                     clue: response.clue,
                     user_id: response.user_id,
                     name: response.student[0].name,

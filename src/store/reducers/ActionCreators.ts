@@ -1,4 +1,4 @@
-import { ITeam, IVoter, IParent } from "../../types/types";
+import { ITeam, IVoter, IParent, IVote } from "../../types/types";
 // import { AppDispatch } from "../store";
 import axios from "axios";
 // import { teamSlice } from "./TeamSlice";
@@ -45,7 +45,19 @@ export const fetchParents = createAsyncThunk(
     "parents/fetchAll",
     async (_, thunkAPI) => {
         try {
-            const response = await axios.get<IVoter[]>('https://gimnazist.herokuapp.com/api/parents/');
+            const response = await axios.get<IParent[]>('https://gimnazist.herokuapp.com/api/parents/');
+            return response.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue("Не удалось загрузить список голосующих");
+        }
+    }
+);
+
+export const fetchVotes = createAsyncThunk(
+    "votes/fetchAll",
+    async (_, thunkAPI) => {
+        try {
+            const response = await axios.get<IVote[]>('https://gimnazist.herokuapp.com/api/votes/');
             return response.data;
         } catch (e) {
             return thunkAPI.rejectWithValue("Не удалось загрузить список голосующих");

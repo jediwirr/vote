@@ -22,6 +22,13 @@ export const parentAPI = createApi({
                 body: parent
             }),
             invalidatesTags: ["parent"]
+        }),
+        deleteParent: builder.mutation<IParent, number>({
+            query: (id) => ({
+                url: `/parents/${id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["parent"]
         })
     })
 });

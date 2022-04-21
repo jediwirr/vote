@@ -10,18 +10,28 @@ export interface ITeam {
 }
 
 export interface IVoter {
+    pk: number
     clue: string,
     user_id: string,
     form: number,
     name: string,
     surname: string,
-    choice: string
+    choice: string,
+    voted: string
 }
 
 export interface IParent {
+    pk: number,
     clue: string,
     user_id: string,
     name: string,
     surname: string,
     choice: string
+}
+
+export interface IVote {
+    pk: number;
+    start: string | null;
+    finish: string | null;
+    name: string;
 }

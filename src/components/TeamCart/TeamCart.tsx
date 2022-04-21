@@ -42,9 +42,7 @@ const TeamCart: FC<TeamCartProps> = ({team, voter, voters, push, update}) => {
             <div className={styles.logo}>
                 <img src={team.image} alt={`${team.name} logo`}/>
             </div>
-            {voter.user_id !== 'null' && <button className={styles.submit_button} /*style={{border:'1px solid ' + team.color}}*/ onClick={handleUpdate}>
-                <Link to={isAbleToRedirect ? '/vote' : '/teams'}>Голосовать за команду!</Link>
-            </button>}
+            {voter.user_id !== 'null' && <button className={styles.submit_button} /*style={{border:'1px solid ' + team.color}}*/ onClick={handleUpdate}>Голосовать за команду! </button>}
             <div>
                 <strong>Капитан: </strong>
                 <span>{team.leader}</span>
