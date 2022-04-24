@@ -10,7 +10,7 @@ import { voteAPI } from "../../services/VoteService";
 
 const VotePage: FC = () => {
     let { data: teamsData, error, isLoading } = teamAPI.useFetchAllTeamsQuery(5, {
-        pollingInterval: 100000
+        pollingInterval: 10000
     });
     const [updateTeam, { error: updateError, isLoading: isUpdateLoading }] = teamAPI.useUpdateTeamMutation();
     const { data: voters} = voterAPI.useFetchAllVotersQuery(5, {
@@ -29,7 +29,8 @@ const VotePage: FC = () => {
     const [labels, setLabels] = useState<string[]>([]);
     const [colors, setColors] = useState<string[]>([]);
     const [src, setSrc] = useState('voters');
-    const [teams, setTeams] = useState<ITeam[]>(teamsData as ITeam[]);
+    let [teams, setTeams] = useState<ITeam[]>(teamsData as ITeam[]);
+    const [remainingTime, setRemainingTime] = useState<number>()
 
     const sortTeams = () => {
         let newArr: ITeam[] = Object.assign([], teamsData);
@@ -37,13 +38,23 @@ const VotePage: FC = () => {
         return newArr
     }
 
+    useEffect(()=>{
+        let myInterval = setInterval(() => {
+            const voteFinish = Date.parse((votes as IVote[])[0].finish as string)
+            let curTime = new Date()
+            setRemainingTime(Math.trunc((voteFinish - Date.parse(curTime.toISOString())) / 1000))
+            console.log(remainingTime) 
+            }, 1000)
+            return ()=> {
+                clearInterval(myInterval);
+              };
+        });
+
     useEffect(() => {
-        console.log(teamsData)
         let billArr: number[] = [];
         let labelsArr: string[] = [];
         let colorsArr: string[] = [];
-        setTeams(sortTeams())
-        console.log(votes)
+        teams = sortTeams()
         teams?.map((team: ITeam) => {
             let voted = 0
             if(src === 'voters'){
@@ -64,11 +75,12 @@ const VotePage: FC = () => {
         setBill(billArr);
         setLabels(labelsArr);
         setColors(colorsArr);
+        setTeams(teams);
     }, [teamsData, voters, parents, src]);
 
     const StyledBlock = styled.div`
         display: flex;
-        flex-direction: column;
+        flex-direction: column; 
         align-items: center;
         width: 100%;
         height: 550px;
@@ -79,9 +91,9 @@ const VotePage: FC = () => {
         updateTeam(team);
     }, []);
 
-    const newVotedData = (team: ITeam, voted: number) => {
+    const newVotedData = useCallback((team: ITeam, voted: number) => {
         updateTeam({...team, voted})
-    }
+    }, []);
 
     const deleteAllVoters = () => {
         voters?.forEach(element => {
@@ -113,7 +125,7 @@ const VotePage: FC = () => {
                         <img className={styles.team_logo} src={team.image} alt="logo"/>
                     )}
                     {src === 'voters' ? teams?.map((team: ITeam) => 
-                        <input type="text" className={styles.team_logo} value={team.voted} onChange={e => newVotedData(team, Number(e.target.value))}/>
+                        <input type="text" className={styles.team_logo} placeholder={team.voted?.toString()} onKeyPress={(e) => { if(e.key === 'Enter') newVotedData(team, Number(e.currentTarget.value))}}/>
                     ) : <div></div>
                     }
                     </div>
@@ -136,7 +148,7 @@ const VotePage: FC = () => {
                     });
                     updateVote({...(votes as IVote[])[0], start: null, finish: null})
                 }}>Очистить</button>
-                <div>Место для таймера</div>
+                {(remainingTime as number) > 0 ? <div>До конца голосования {remainingTime} секунд </div> : <div>Голосвание закончилось</div>}
             </div> 
         </StyledBlock>
         
