@@ -149,6 +149,7 @@ const VotePage: FC = () => {
                     updateVote({...(votes as IVote[])[0], start: null, finish: null})
                 }}>Очистить</button>
                 {(remainingTime as number) > 0 ? <div>До конца голосования {remainingTime} секунд </div> : <div>Голосвание закончилось</div>}
+                <div>Проголосовало {src === 'voters' ? voters?.length : parents?.length} {src === 'voters' ? ' учеников' : ' родителей'}</div>
             </div> 
         </StyledBlock>
         
