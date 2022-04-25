@@ -26,7 +26,8 @@ export interface IParent {
     user_id: string,
     name: string,
     surname: string,
-    choice: string
+    choice: string,
+    voted: string
 }
 
 export interface IVote {

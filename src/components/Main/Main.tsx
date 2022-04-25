@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Main.module.css"
-import { BsFillPeopleFill, BsPersonFill, BsGearFill } from "react-icons/bs";
+import { BsFillPeopleFill, BsPersonFill, BsGearFill, BsEyeFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 
@@ -19,6 +19,10 @@ const Main = () => {
                     <h2>Родитель</h2>
                 </Link>
                 <Link className={styles.post} to="/stats">
+                    <BsEyeFill size="6em"/>
+                    <h2>Ведущий</h2>
+                </Link>
+                <Link className={styles.post} to="/admin">
                     <BsGearFill size="6em"/>
                     <h2>Организатор</h2>
                 </Link>

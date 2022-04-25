@@ -1965,6 +1965,13 @@
     "hoist-non-react-statics" "^3.3.0"
     "redux" "^4.0.0"
 
+"@types/react-table@^7.7.11":
+  "integrity" "sha512-Ntfr4EMWgqf/m/CxfmiHww5HvE1nOfK3yEm3NJ3ZWv9IkdteqTOklG3rJtFCtICKAkr3q5pqajkm0y1+WnmdbA=="
+  "resolved" "https://registry.npmjs.org/@types/react-table/-/react-table-7.7.11.tgz"
+  "version" "7.7.11"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^17.0.39":
   "integrity" "sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug=="
   "resolved" "https://registry.npmjs.org/@types/react/-/react-17.0.39.tgz"
@@ -7384,7 +7391,12 @@
   dependencies:
     "history" "^5.2.0"
 
-"react@*", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17.0.0 || 18.0.0-beta", "react@^17.0.2", "react@>=16.8", "react@>=16.8.0", "react@17.0.2":
+"react-table@^7.7.0":
+  "integrity" "sha512-jBlj70iBwOTvvImsU9t01LjFjy4sXEtclBovl3mTiqjz23Reu0DKnRza4zlLtOPACx6j2/7MrQIthIK1Wi+LIA=="
+  "resolved" "https://registry.npmjs.org/react-table/-/react-table-7.7.0.tgz"
+  "version" "7.7.0"
+
+"react@*", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.8.3 || ^17.0.0-0", "react@^16.9.0 || ^17.0.0 || 18.0.0-beta", "react@^17.0.2", "react@>=16.8", "react@>=16.8.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

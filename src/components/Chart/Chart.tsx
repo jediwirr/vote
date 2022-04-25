@@ -1,5 +1,5 @@
 
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 // import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 // import { Pie } from "react-chartjs-2";
@@ -20,11 +20,6 @@ import { Anchor } from "chartjs-plugin-datalabels/types/options";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
-// const chartStyle = css`
-//     width: 100%;
-//     height: 550px;
-// `;
-
 interface ChartProps {
   bill: number[];
   labels: string[];
@@ -41,7 +36,23 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
     Legend
   );
 
-  const max = Math.max.apply(null, bill);
+
+  let [placeArr, setPlaceArr] = useState([0, 1, 2])
+
+  useEffect(() => {
+    placeArr = [-1, -1, -1]
+    let max = 0;
+    for(let i = 0; i < placeArr.length; i++){
+      max = 0;
+      for(let j = 0; j < bill.length; j++){
+        if(max <= bill[j] && !!!placeArr.includes(j)) {
+          max = bill[j];
+          placeArr[i] = j;
+        }
+      }
+    }
+    setPlaceArr(placeArr)
+  }, [bill] )
   // let sum = 0
   // bill.forEach( (item) => {sum += item} )
 
@@ -56,7 +67,7 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
       },
       title: {
         display: true,
-        text: `В голосовании лидирует команда ${labels[bill.indexOf(max)]}`,
+        text: `Первое место - ${labels[placeArr[0]]}, второе - ${labels[placeArr[1]]}, третье - ${labels[placeArr[2]]}`,
       },
       datalabels:{
         color: 'black',

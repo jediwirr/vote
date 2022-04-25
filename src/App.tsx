@@ -14,6 +14,8 @@ import {
 } from "react-router-dom";
 import { IParent, IVoter } from './types/types';
 import ParentHome from './components/Home/ParentHome';
+import VoterList from './components/VoterList/VoterList';
+import AdminPanel from './components/AdminPanel/AdminPanel';
 
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
             <Route path="/kidVote" element={<KidHome voter={voter}/>} />
             <Route path="/kidAuth" element={<KidAuth setVoter={setVoter}/>} />
             <Route path="/parentAuth" element={<ParentAuth setParent={setParent}/>} />
+            <Route path="/votersList" element={<VoterList/>} />
+            <Route path="/admin" element={<AdminPanel/>} />
             <Route path="/" element={<Main />} />
           </Routes>
     </BrowserRouter>

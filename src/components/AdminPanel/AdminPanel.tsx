@@ -3,13 +3,13 @@ import styled from "@emotion/styled";
 import { teamAPI } from "../../services/TeamService";
 import Chart from '../Chart/Chart';
 import { IParent, ITeam, IVote, IVoter } from "../../types/types";
-import styles from "./VotePage.module.css"
+import styles from "./AdminPanel.module.css"
 import { voterAPI } from "../../services/VoterService"
 import {parentAPI} from "../../services/ParentService";
 import { voteAPI } from "../../services/VoteService";
 import { Link } from "react-router-dom";
 
-const VotePage: FC = () => {
+const AdminPanel: FC = () => {
     let { data: teamsData, error, isLoading } = teamAPI.useFetchAllTeamsQuery(5, {
         pollingInterval: 10000
     });
@@ -124,6 +124,10 @@ const VotePage: FC = () => {
                     {teams?.map((team: ITeam) => 
                         <img className={styles.team_logo} src={team.image} alt="logo"/>
                     )}
+                    {src === 'voters' ? teams?.map((team: ITeam) => 
+                        <input type="text" className={styles.team_logo} placeholder={team.voted?.toString()} onKeyPress={(e) => { if(e.key === 'Enter') newVotedData(team, Number(e.currentTarget.value))}}/>
+                    ) : <div></div>
+                    }
                     </div>
                 </div>
             }
@@ -131,10 +135,26 @@ const VotePage: FC = () => {
                 <button className={styles.submit_button} onClick={() => {setSrc('voters')}}>Ученики</button>
                 <button className={styles.submit_button} onClick={() => {setSrc('parents');}}>Родители</button>
             </div>
-            {(remainingTime as number) > 0 ? <div style={{textAlign: 'center'}}>До конца голосования {remainingTime} секунд </div> : <div style={{textAlign: 'center'}}>Голосвание закончилось</div>}
+            <div style={{marginBottom: '7%'}}>
+                <button className={styles.submit_button} onClick={() => {
+                    startVote((votes as IVote[])[0])
+                    }
+                }>Начать голосование!</button>
+                <button className={styles.submit_button} onClick={() => {
+                    deleteAllVoters(); 
+                    deleteAllParents();
+                    teams.forEach(element => {
+                        newVotedData(element, 0)
+                    });
+                    updateVote({...(votes as IVote[])[0], start: null, finish: null})
+                }}>Очистить</button>
+                <Link className={styles.submit_button} to='/votersList'>Список голосов</Link>
+                {(remainingTime as number) > 0 ? <div style={{textAlign: 'center'}}>До конца голосования {remainingTime} секунд </div> : <div style={{textAlign: 'center'}}>Голосвание закончилось</div>}
+                <div style={{textAlign: 'center'}}>Проголосовало {src === 'voters' ? voters?.length : parents?.length} {src === 'voters' ? ' учеников' : ' родителей'}</div>
+            </div> 
         </StyledBlock>
         
     );
 }
 
-export default VotePage;
+export default AdminPanel;

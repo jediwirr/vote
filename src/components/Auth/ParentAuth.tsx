@@ -30,7 +30,8 @@ const ParentAuth: FC<ParentAuthProps> = ({setParent}) => {
                     user_id: response.user_id,
                     name: response.student[0].name,
                     surname: response.student[0].surname,
-                    choice: ''
+                    choice: '',
+                    voted: ''
                 })
                 console.log(isAbleToRedirect)
             } else if (login === '' || password === '') {
