@@ -67,7 +67,12 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
       },
       title: {
         display: true,
-        text: `Первое место - ${labels[placeArr[0]]}, второе - ${labels[placeArr[1]]}, третье - ${labels[placeArr[2]]}`,
+        text: `1 место - ${labels[placeArr[0]]}\
+         2 - ${labels[placeArr[1]]}\
+         3 - ${labels[placeArr[2]]}`,
+         font: {
+           size: 26
+         }
       },
       datalabels:{
         color: 'black',
