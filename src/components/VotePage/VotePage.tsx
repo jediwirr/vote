@@ -41,7 +41,7 @@ const VotePage: FC = () => {
 
     useEffect(()=>{
         let myInterval = setInterval(() => {
-            const voteFinish = Date.parse((votes as IVote[])[0].finish as string)
+            const voteFinish = (votes as IVote[])[0].finish === null ? Date.parse((votes as IVote[])[0].finish as string) : 12312312
             let curTime = new Date()
             setRemainingTime(Math.trunc((voteFinish - Date.parse(curTime.toISOString())) / 1000))
             }, 1000)
@@ -117,7 +117,7 @@ const VotePage: FC = () => {
         <StyledBlock>
             {isLoading && isParentsLoading && isVotersLoading && isVotesLoading && <h1>Идет загрузка...</h1>}
             {error && <h1>Произошла ошибка</h1>}
-            {teams &&
+            {teams && parents && voters && votes &&
                 <div style={{height:'90%', width:'100%'}}>
                     <Chart bill={bill} labels={labels} colors={colors} />
                     <div className={styles.container}>
@@ -131,7 +131,7 @@ const VotePage: FC = () => {
                 <button className={styles.submit_button} onClick={() => {setSrc('voters')}}>Ученики</button>
                 <button className={styles.submit_button} onClick={() => {setSrc('parents');}}>Родители</button>
             </div>
-            {(remainingTime as number) > 0 ? <div style={{textAlign: 'center'}}>До конца голосования {remainingTime} секунд </div> : <div style={{textAlign: 'center'}}>Голосвание закончилось</div>}
+            {votes && (remainingTime as number) > 0 ? <div style={{textAlign: 'center'}}>До конца голосования {remainingTime} секунд </div> : <div style={{textAlign: 'center'}}>Голосвание закончилось</div>}
         </StyledBlock>
         
     );
