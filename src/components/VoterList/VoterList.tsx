@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from './VoterList.module.css'
 import { voterAPI } from "../../services/VoterService"
 import { parentAPI } from "../../services/ParentService";
@@ -7,14 +7,33 @@ import { IParent, IVote } from "../../types/types";
 import { IVoter } from "../../types/types";
 
 const VoterList = () => {
-    const { data: voters} = voterAPI.useFetchAllVotersQuery(5);
-    const { data: parents} = parentAPI.useFetchAllParentsQuery(5);
+    let { data: votersData} = voterAPI.useFetchAllVotersQuery(5);
+    let { data: parentsData} = parentAPI.useFetchAllParentsQuery(5);
     const {data: votes, isLoading} = voteAPI.useFetchAllVotesQuery(5);
     const [src, setSrc] = useState('voters');
+    const [voters, setVoters] = useState(votersData)
+    const [parents, setParents] = useState(parentsData)
 
     const checkVote = (voter: IVoter | IParent) => {
         if((votes as IVote[])[0].start != null && voter.voted >= ((votes as IVote[])[0].start as string) && voter.voted <= ((votes as IVote[])[0].finish as string)) return true
         return false
+    }
+
+    useEffect(() => {
+        setVoters(sortVoters())
+        setParents(sortParents())
+    }, [])
+
+    const sortVoters = () => {
+        let newArr : IVoter[] = Object.assign([], voters);
+        newArr.sort((a, b) => a.form - b.form)
+        return newArr
+    }
+
+    const sortParents = () => {
+        let newArr : IParent[] = Object.assign([], parents);
+        newArr.sort((a, b) => Number(a.choice > b.choice))
+        return newArr
     }
     
 
