@@ -5,10 +5,11 @@ import { parentAPI } from "../../services/ParentService";
 import { voteAPI } from "../../services/VoteService";
 import { IParent, IVote } from "../../types/types";
 import { IVoter } from "../../types/types";
+import { BsArrowClockwise } from "react-icons/bs";
 
 const VoterList = () => {
-    let { data: votersData} = voterAPI.useFetchAllVotersQuery(5);
-    let { data: parentsData} = parentAPI.useFetchAllParentsQuery(5);
+    let { data: votersData, isLoading: isVotersLoading} = voterAPI.useFetchAllVotersQuery(5);
+    let { data: parentsData, isLoading: isParentsLoading} = parentAPI.useFetchAllParentsQuery(5);
     const {data: votes, isLoading} = voteAPI.useFetchAllVotesQuery(5);
     const [src, setSrc] = useState('voters');
     const [voters, setVoters] = useState(votersData)
@@ -39,13 +40,15 @@ const VoterList = () => {
 
     return(
         <div className={styles.container}>
-            {isLoading ? <div>Загрузка...</div> : <div className={styles.container}>
-                <div style={{marginTop: '1vh'}}>Список проголосовавших:</div>
+            {isLoading && isVotersLoading && isParentsLoading ? <div>Загрузка...</div> : <div className={styles.container}>
+                <div style={{marginTop: '1vh', display: "flex", flexDirection: 'row', alignItems: "center"}}>
+                    <p>Список проголосовавших: </p>
+                </div>
                 <div style={{marginTop: '1vh'}}>
                     <button color={src === 'voters' ? 'white' : 'teal'} className={styles.submit_button} onClick={() => {setSrc('voters');}}>Ученики</button>
                     <button className={styles.submit_button} onClick={() => {setSrc('parents');}}>Родители</button>
                 </div>
-                    <table>
+                    { <table>
                         <thead>
                             <tr>
                             <th>ID</th>
@@ -73,7 +76,7 @@ const VoterList = () => {
                             </tr>)}
                             
                         </tbody>
-                    </table>
+                    </table>}
                 </div>}
         </div>
     )

@@ -39,6 +39,21 @@ const VotePage: FC = () => {
         return newArr
     }
 
+    const filterVoters = (seconds: number) => {
+        let newArr: IVoter[] = Object.assign([], voters);
+        const minTime = Date.parse((votes as IVote[])[0].start as string);
+        const maxTime = minTime + seconds * 1000;
+        console.log(minTime, maxTime);
+        newArr = newArr.filter((voter) => {
+            const votedTime = Date.parse(voter.voted);
+            console.log(votedTime)
+            if(votedTime >= minTime && votedTime <= maxTime) return true;
+            return false;
+        })
+        console.log(newArr);
+        return newArr;
+    }
+
     useEffect(()=>{
         let myInterval = setInterval(() => {
             const voteFinish = (votes as IVote[])[0].finish === null ? Date.parse((votes as IVote[])[0].finish as string) : 12312312
@@ -48,7 +63,7 @@ const VotePage: FC = () => {
             return ()=> {
                 clearInterval(myInterval);
               };
-        });
+        }, []);
 
     useEffect(() => {
         let billArr: number[] = [];
@@ -63,9 +78,27 @@ const VotePage: FC = () => {
                     if(voter.choice === team.name && (votes as IVote[])[0].start != null && voter.voted >= ((votes as IVote[])[0].start as string) && voter.voted <= ((votes as IVote[])[0].finish as string)) voted++;
                 })
             }
-            else{
+            else if(src === 'parents') {
                 parents?.forEach((parent:IParent) => {
                     if(parent.choice === team.name) voted++;
+                })
+            }
+            else if(src === 'oneMin') {
+                const temp = filterVoters(60);
+                temp.forEach((voter:IVoter) => {
+                    if(voter.choice === team.name) voted++;
+                })
+            }
+            else if(src === 'twoMin') {
+                const temp = filterVoters(120);
+                temp.forEach((voter:IVoter) => {
+                    if(voter.choice === team.name) voted++;
+                })
+            }
+            else if(src === 'threeMin') {
+                const temp = filterVoters(180);
+                temp.forEach((voter:IVoter) => {
+                    if(voter.choice === team.name) voted++;
                 })
             }
             billArr.push(voted);
@@ -130,6 +163,9 @@ const VotePage: FC = () => {
             <div style={{marginTop: '7%'}}>
                 <button className={styles.submit_button} onClick={() => {setSrc('voters')}}>Ученики</button>
                 <button className={styles.submit_button} onClick={() => {setSrc('parents');}}>Родители</button>
+                <button className={styles.submit_button} onClick={() => {setSrc('oneMin');}}>1 минута</button>
+                <button className={styles.submit_button} onClick={() => {setSrc('twoMin');}}>2 минуты</button>
+                <button className={styles.submit_button} onClick={() => {setSrc('threeMin');}}>3 минуты</button>
             </div>
             {votes && (remainingTime as number) > 0 ? <div style={{textAlign: 'center'}}>До конца голосования {remainingTime} секунд </div> : <div style={{textAlign: 'center'}}>Голосвание закончилось</div>}
         </StyledBlock>

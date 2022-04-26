@@ -39,7 +39,7 @@ const AdminPanel: FC = () => {
         return newArr
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         let billArr: number[] = [];
         let labelsArr: string[] = [];
         let colorsArr: string[] = [];
@@ -111,10 +111,10 @@ const AdminPanel: FC = () => {
                     <Chart bill={bill} labels={labels} colors={colors} />
                     <div className={styles.container}>
                     {teams?.map((team: ITeam) => 
-                        <img className={styles.team_logo} src={team.image} alt="logo"/>
+                        <img className={styles.team_logo} src={team.image} alt="logo" key={team.name}/>
                     )}
                     {src === 'voters' ? teams?.map((team: ITeam) => 
-                        <input type="text" className={styles.team_logo} placeholder={team.voted?.toString()} onKeyPress={(e) => { if(e.key === 'Enter') newVotedData(team, Number(e.currentTarget.value))}}/>
+                        <input type="text" className={styles.team_logo} key={team.name} placeholder={team.voted?.toString()} onKeyPress={(e) => { if(e.key === 'Enter') newVotedData(team, Number(e.currentTarget.value))}}/>
                     ) : <div></div>
                     }
                     </div>
