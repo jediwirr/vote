@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const AdminPanel: FC = () => {
     let { data: teamsData, error, isLoading } = teamAPI.useFetchAllTeamsQuery(5, {
-        pollingInterval: 10000
+        pollingInterval: 20000
     });
     const [updateTeam, { error: updateError, isLoading: isUpdateLoading }] = teamAPI.useUpdateTeamMutation();
     const { data: voters, isLoading: isVotersLoading} = voterAPI.useFetchAllVotersQuery(5, {
