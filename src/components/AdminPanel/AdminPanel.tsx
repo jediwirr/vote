@@ -106,7 +106,7 @@ const AdminPanel: FC = () => {
         <StyledBlock>
             {isLoading && isParentsLoading && isVotersLoading && isVotesLoading && <h1>Идет загрузка...</h1>}
             {error && <h1>Произошла ошибка</h1>}
-            {teams &&
+            {teams && parents && voters && votes &&
                 <div style={{height:'90%', width:'100%'}}>
                     <Chart bill={bill} labels={labels} colors={colors} />
                     <div className={styles.container}>
