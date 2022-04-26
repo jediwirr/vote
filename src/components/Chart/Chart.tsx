@@ -81,7 +81,7 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
     scales:{
       y: {
         beginAtZero: true,
-        max: Math.ceil(bill[placeArr[0]] / 6) * 8
+        max: Math.ceil(bill[placeArr[0]] / 6) * 8 + 5
       }
     },
     animation: {
