@@ -161,13 +161,13 @@ const VotePage: FC = () => {
                 </div>
             }
             <div style={{marginTop: '7%'}}>
-                <button className={styles.submit_button} onClick={() => {setSrc('voters')}}>Ученики</button>
-                <button className={styles.submit_button} onClick={() => {setSrc('parents');}}>Родители</button>
-                <button className={styles.submit_button} onClick={() => {setSrc('oneMin');}}>1 минута</button>
-                <button className={styles.submit_button} onClick={() => {setSrc('twoMin');}}>2 минуты</button>
-                <button className={styles.submit_button} onClick={() => {setSrc('threeMin');}}>3 минуты</button>
+                <button className={src === 'voters' ? styles.submit_button : styles.passive_button} onClick={() => {setSrc('voters')}}>Ученики</button>
+                <button className={src === 'parents' ? styles.submit_button : styles.passive_button} onClick={() => {setSrc('parents');}}>Родители</button>
+                <button className={src === 'oneMin' ? styles.submit_button : styles.passive_button} onClick={() => {setSrc('oneMin');}}>1 минута</button>
+                <button className={src === 'twoMin' ? styles.submit_button : styles.passive_button} onClick={() => {setSrc('twoMin');}}>2 минуты</button>
+                <button className={src === 'threeMin' ? styles.submit_button : styles.passive_button} onClick={() => {setSrc('threeMin');}}>3 минуты</button>
             </div>
-            {votes && (remainingTime as number) > 0 ? <div style={{textAlign: 'center'}}>До конца голосования {remainingTime} секунд </div> : <div style={{textAlign: 'center'}}>Голосование закончилось</div>}
+            {votes && (remainingTime as number) > 0 ? <div className={styles.label}>До конца голосования {remainingTime} секунд </div> : <div className={styles.label}>Голосование закончилось</div>}
         </StyledBlock>
         
     );
