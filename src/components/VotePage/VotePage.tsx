@@ -56,14 +56,15 @@ const VotePage: FC = () => {
 
     useEffect(()=>{
         let myInterval = setInterval(() => {
-            const voteFinish = (votes as IVote[])[0].finish === null ? Date.parse((votes as IVote[])[0].finish as string) : 12312312
+            const voteFinish = ((votes as IVote[])[0].finish !== null ? Date.parse((votes as IVote[])[0].finish as string) : 12312312)
             let curTime = new Date()
+            console.log((votes as IVote[])[0].finish)
             setRemainingTime(Math.trunc((voteFinish - Date.parse(curTime.toISOString())) / 1000))
             }, 1000)
             return ()=> {
                 clearInterval(myInterval);
               };
-        }, []);
+        });
 
     useEffect(() => {
         let billArr: number[] = [];
@@ -75,7 +76,7 @@ const VotePage: FC = () => {
             if(src === 'voters'){
                 voted = team.voted ? team.voted : 0;
                 voters?.forEach((voter:IVoter) => {
-                    if(voter.choice === team.name && (votes as IVote[])[0].start != null && voter.voted >= ((votes as IVote[])[0].start as string) && voter.voted <= ((votes as IVote[])[0].finish as string)) voted++;
+                    if(voter.choice === team.name && (votes as IVote[])[0].start !== null && voter.voted >= ((votes as IVote[])[0].start as string) && voter.voted <= ((votes as IVote[])[0].finish as string)) voted++;
                 })
             }
             else if(src === 'parents') {
@@ -167,7 +168,7 @@ const VotePage: FC = () => {
                 <button className={styles.submit_button} onClick={() => {setSrc('twoMin');}}>2 минуты</button>
                 <button className={styles.submit_button} onClick={() => {setSrc('threeMin');}}>3 минуты</button>
             </div>
-            {votes && (remainingTime as number) > 0 ? <div style={{textAlign: 'center'}}>До конца голосования {remainingTime} секунд </div> : <div style={{textAlign: 'center'}}>Голосвание закончилось</div>}
+            {votes && (remainingTime as number) > 0 ? <div style={{textAlign: 'center'}}>До конца голосования {remainingTime} секунд </div> : <div style={{textAlign: 'center'}}>Голосование закончилось</div>}
         </StyledBlock>
         
     );
