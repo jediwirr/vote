@@ -43,7 +43,6 @@ const VotePage: FC = () => {
         let newArr: IVoter[] = Object.assign([], voters);
         const minTime = Date.parse((votes as IVote[])[0].start as string);
         const maxTime = minTime + seconds * 1000;
-        console.log(minTime, maxTime);
         newArr = newArr.filter((voter) => {
             const votedTime = Date.parse(voter.voted);
             console.log(votedTime)
@@ -58,7 +57,6 @@ const VotePage: FC = () => {
         let myInterval = setInterval(() => {
             const voteFinish = ((votes as IVote[])[0].finish !== null ? Date.parse((votes as IVote[])[0].finish as string) : 12312312)
             let curTime = new Date()
-            console.log((votes as IVote[])[0].finish)
             setRemainingTime(Math.trunc((voteFinish - Date.parse(curTime.toISOString())) / 1000))
             }, 1000)
             return ()=> {
@@ -85,6 +83,7 @@ const VotePage: FC = () => {
                 })
             }
             else if(src === 'oneMin') {
+                voted = 0
                 const temp = filterVoters(60);
                 temp.forEach((voter:IVoter) => {
                     if(voter.choice === team.name) voted++;

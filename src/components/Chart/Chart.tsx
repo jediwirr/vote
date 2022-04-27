@@ -36,8 +36,8 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
     Legend
   );
 
-
   let [placeArr, setPlaceArr] = useState([0, 1, 2])
+  const [yMax, setYMax] = useState(1);
 
   useEffect(() => {
     placeArr = [-1, -1, -1]
@@ -51,6 +51,8 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
         }
       }
     }
+    if(bill[placeArr[0]] === 0) setYMax(1)
+    else setYMax(Math.ceil(bill[placeArr[0]] / 6 + 1) * 8 )
     setPlaceArr(placeArr)
   }, [bill] )
   // let sum = 0
@@ -86,7 +88,7 @@ const Chart: FC<ChartProps> = ({bill, labels, colors}) => {
     scales:{
       y: {
         beginAtZero: true,
-        max: Math.ceil(bill[placeArr[0]] / 6) * 8 
+        max: yMax
       }
     },
     animation: {
