@@ -20,7 +20,9 @@ const VotePage: FC = () => {
     const { data: parents, isLoading: isParentsLoading} = parentAPI.useFetchAllParentsQuery(5, {
         pollingInterval: 20000
     });
-    const {data: votes, isLoading: isVotesLoading} = voteAPI.useFetchAllVotesQuery(5)
+    const {data: votes, isLoading: isVotesLoading} = voteAPI.useFetchAllVotesQuery(5, {
+        pollingInterval: 10000
+    });
     const [updateVote] = voteAPI.useUpdateVoteMutation();
 
     const [deleteVoter] = voterAPI.useDeleteVoterMutation();
