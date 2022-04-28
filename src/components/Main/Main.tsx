@@ -22,10 +22,10 @@ const Main = () => {
                     <BsEyeFill size="6em"/>
                     <h2>Ведущий</h2>
                 </Link>
-                {/* <Link className={styles.post} to="/admin">
+                <Link className={styles.post} to="/admin">
                     <BsGearFill size="6em"/>
                     <h2>Организатор</h2>
-                </Link> */}
+                </Link>
             </div>
         </div>
     )
